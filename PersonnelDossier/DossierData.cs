@@ -31,6 +31,8 @@ public sealed class DossierData
 
     public LabelSet labels = new();
     public Dictionary<string, TraitText> traits = new();
+    // Wordings for the GrantSkill_* traits; {0} is the skill name.
+    public List<string> grantSkill = new();
     public Dictionary<string, string> memos = new();
     public List<string> genericMemos = new();
 

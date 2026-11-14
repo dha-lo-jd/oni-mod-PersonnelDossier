@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,8 +9,10 @@ namespace PersonnelDossier;
 public static class Dossier
 {
     private const int MaxLinesPerField = 2;
+    public const string GrantPrefix = "GrantSkill_";
 
-    public static string Compose(DossierData data, int seed, IList<string> traitIds)
+    // skillName maps a skill id (the part after "GrantSkill_") to its display name, or null when unknown.
+    public static string Compose(DossierData data, int seed, IList<string> traitIds, Func<string, string> skillName = null)
     {
         var l = data.labels;
         var good = new List<string>();
@@ -19,18 +22,33 @@ public static class Dossier
 
         foreach (var id in traitIds)
         {
-            if (!data.traits.TryGetValue(id, out var text))
+            string line;
+            var kind = "good";
+            if (id.StartsWith(GrantPrefix, StringComparison.Ordinal))
+            {
+                var name = skillName?.Invoke(id.Substring(GrantPrefix.Length));
+                if (string.IsNullOrEmpty(name) || data.grantSkill.Count == 0)
+                {
+                    continue;
+                }
+
+                line = string.Format(data.grantSkill[(int)(Hash(seed, id) % (uint)data.grantSkill.Count)], name);
+            }
+            else if (data.traits.TryGetValue(id, out var text))
+            {
+                kind = text.kind;
+                line = Hash(seed, id) % 2 == 0 ? text.a : text.b;
+                if (string.IsNullOrEmpty(line))
+                {
+                    line = text.a ?? text.b;
+                }
+            }
+            else
             {
                 continue;
             }
 
-            var line = Hash(seed, id) % 2 == 0 ? text.a : text.b;
-            if (string.IsNullOrEmpty(line))
-            {
-                line = text.a ?? text.b;
-            }
-
-            var target = text.kind == "good" ? good : text.kind == "bad" ? bad : note;
+            var target = kind == "good" ? good : kind == "bad" ? bad : note;
             if (!string.IsNullOrEmpty(line) && target.Count < MaxLinesPerField)
             {
                 target.Add(line);

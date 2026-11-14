@@ -59,6 +59,32 @@ internal static class HarnessTests
         typeof(SurveillanceHost).GetMethod("SetVisible", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(host, new object[] { true, false });
     }
 
+    // Every trait the game can hand out has text, and every GrantSkill_* trait resolves to a skill name.
+    [HarnessTest(Name = "dossier.coverage", Tags = "dossier")]
+    public static IEnumerator Coverage()
+    {
+        var data = DossierData.Current;
+        var ids = new System.Collections.Generic.List<string>();
+        foreach (var list in new[] { TUNING.DUPLICANTSTATS.GOODTRAITS, TUNING.DUPLICANTSTATS.BADTRAITS, TUNING.DUPLICANTSTATS.NEEDTRAITS,
+                     TUNING.DUPLICANTSTATS.STRESSTRAITS, TUNING.DUPLICANTSTATS.JOYTRAITS, TUNING.DUPLICANTSTATS.CONGENITALTRAITS })
+        {
+            ids.AddRange(list.Select(t => t.id));
+        }
+
+        var missing = ids.Where(id => !id.StartsWith(Dossier.GrantPrefix) && !data.traits.ContainsKey(id)).Distinct().ToList();
+        Debug.Log("[PersonnelDossier] traits without text: " + string.Join(", ", missing));
+
+        var grants = ids.Where(id => id.StartsWith(Dossier.GrantPrefix)).Distinct().ToList();
+        var unresolved = grants.Where(id => string.IsNullOrEmpty(DossierSection.SkillName(id.Substring(Dossier.GrantPrefix.Length)))).ToList();
+        Debug.Log($"[PersonnelDossier] grant-skill traits: {grants.Count}, names: " + string.Join(", ", grants.Select(id => id + "=" + DossierSection.SkillName(id.Substring(Dossier.GrantPrefix.Length)))));
+        var sample = Dossier.Compose(data, 12345, new[] { "GrantSkill_Mining1" }, DossierSection.SkillName);
+        Debug.Log("[PersonnelDossier] grant-skill sample: " + sample);
+        Check.True(!sample.Contains("<"), "markup left in the text: " + sample);
+        Check.True(sample.Contains(DossierSection.SkillName("Mining1")), "the skill name is not in the text: " + sample);
+        Check.Equal(0, unresolved.Count, "GrantSkill traits whose skill name was not found: " + string.Join(", ", unresolved));
+        yield return null;
+    }
+
     // Same duplicant, same text; the text uses the duplicant's own traits.
     [HarnessTest(Name = "dossier.stable_text", Tags = "dossier")]
     public static IEnumerator StableText()
@@ -71,8 +97,8 @@ internal static class HarnessTests
         {
             var seed = minion.GetComponent<KPrefabID>().InstanceID;
             var ids = minion.GetComponent<Traits>().TraitList.Select(t => t.Id).ToList();
-            var first = Dossier.Compose(data, seed, ids);
-            var second = Dossier.Compose(data, seed, ids);
+            var first = Dossier.Compose(data, seed, ids, DossierSection.SkillName);
+            var second = Dossier.Compose(data, seed, ids, DossierSection.SkillName);
             Check.Equal(first, second, "dossier text of " + minion.GetProperName());
             Debug.Log($"[PersonnelDossier] {minion.GetProperName()} ({string.Join(",", ids)})\n{first}");
         }

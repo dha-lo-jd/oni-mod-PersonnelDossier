@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Text.RegularExpressions;
 using DuplicantSurveillance;
 using Klei.AI;
 using TMPro;
@@ -41,11 +42,14 @@ public sealed class DossierSection : ISection
         element.minHeight = 20f;
     }
 
+    // The game's names carry link markup (<link="MINING1">...</link>); the record is plain text.
+    public static string SkillName(string skillId) => Regex.Replace(Db.Get().Skills.TryGet(skillId)?.Name ?? "", "<[^>]+>", "");
+
     public void Refresh(MinionIdentity target)
     {
         var seed = target.GetComponent<KPrefabID>().InstanceID;
         var ids = target.GetComponent<Traits>().TraitList.Select(t => t.Id).ToList();
-        var text = Dossier.Compose(DossierData.Current, seed, ids);
+        var text = Dossier.Compose(DossierData.Current, seed, ids, SkillName);
         if (shown != target || shownText != text)
         {
             body.text = text;

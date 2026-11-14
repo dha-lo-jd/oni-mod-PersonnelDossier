@@ -1,0 +1,8 @@
+title: "Personnel Dossier"
+description: "Adds a personnel record to Duplicant Surveillance, written from each duplicant's traits. Text only; no gameplay effect."
+staticID: "kawo.PersonnelDossier"
+requiredDlcIds: []
+forbiddenDlcIds: []
+minimumSupportedBuild: 744825
+version: "0.1.0"
+APIVersion: 2

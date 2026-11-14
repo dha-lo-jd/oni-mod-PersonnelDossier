@@ -1,0 +1,52 @@
+{
+  "labels": {
+    "title": "Personnel Record",
+    "record": "Record No.",
+    "recommend": "Recommendations",
+    "concerns": "Concerns",
+    "notes": "Remarks",
+    "reason": "Reason for leaving",
+    "memo": "Handler's note",
+    "none": "None on file (under review)",
+    "blank": "(left blank)"
+  },
+  "traits": {
+    "StrongArm":        { "kind": "good", "a": "Suitability for heavy work, including hauling, is beyond question.", "b": "In load testing, the test equipment reached its limit first." },
+    "EarlyBird":        { "kind": "good", "a": "Work efficiency is high from the moment of waking.", "b": "Attendance at morning assembly is consistently perfect." },
+    "NightOwl":         { "kind": "good", "a": "Work efficiency is high at night.", "b": "Activity is logged after lights-out. The assigned working hours may not match actual practice." },
+    "MoleHands":        { "kind": "good", "a": "Aptitude for excavation is high.", "b": "Gloves must be ordered to measure." },
+    "Greasemonkey":     { "kind": "good", "a": "Well versed in the handling of machinery.", "b": "Tends to adjust parts that were not assigned. Results have been broadly satisfactory." },
+    "Foodie":           { "kind": "good", "a": "Maintains high standards for meals.", "b": "The largest contributor of canteen feedback forms." },
+    "BedsideManner":    { "kind": "good", "a": "Attentive in the care of patients.", "b": "Aptitude for nursing confirmed. No patient complaints on record." },
+
+    "CantResearch":     { "kind": "bad", "a": "Assignment to research departments is not recommended.", "b": "The \"logic\" field of the aptitude test is illegible due to ink bleed." },
+    "CantDig":          { "kind": "bad", "a": "Movement ceases in the presence of holes. Not eligible for mining duties.", "b": "Three attempts to assign to mining are on record. All ended partway through." },
+    "CantCook":         { "kind": "bad", "a": "Strong distrust of cooking. Not eligible for kitchen duties.", "b": "The officer who proposed a kitchen posting was reassigned the next day." },
+    "CantBuild":        { "kind": "bad", "a": "Not eligible for construction duties.", "b": "When advised to use a self-made chair, the subject politely declined." },
+    "Hemophobia":       { "kind": "bad", "a": "Not eligible for the care of the sick or injured.", "b": "A detour is advisable whenever the route passes the infirmary." },
+    "Snorer":           { "kind": "bad", "a": "Sleeping volume exceeds the standard value for living quarters.", "b": "Care is required in assigning neighboring rooms." },
+    "Narcolepsy":       { "kind": "bad", "a": "Sleeps on duty. Location is not a factor.", "b": "If work has stopped partway, it is sleep, not a malfunction." },
+    "MouthBreather":    { "kind": "bad", "a": "Oxygen consumption exceeds the average.", "b": "The oxygen bill is higher than that of other staff." },
+    "Flatulence":       { "kind": "bad", "a": "Exhaust frequency is high. Please consider ventilation.", "b": "Securing the upwind side is advisable at placement." },
+
+    "Claustrophobic":   { "kind": "note", "a": "Uneasy in spaces under 4 tiles high or 3 tiles wide.", "b": "Confirm room dimensions at the design stage." },
+    "BingeEater":       { "kind": "note", "a": "Overeats when stress accumulates.", "b": "Advance notice to catering is required." },
+    "BalloonArtist":    { "kind": "note", "a": "Hands out balloons when in good spirits.", "b": "The source of the balloons has not been confirmed." },
+    "DataRainer":       { "kind": "note", "a": "Microchips fall when joy runs high.", "b": "Accounting is still discussing how to process them." }
+  },
+  "memos": {
+    "Narcolepsy": "A wake-up officer was appointed; few instances of the subject waking are on record.",
+    "MoleHands": "When shaking hands, do not be alarmed by their size.",
+    "DataRainer": "No one has counted what falls.",
+    "CantResearch": "Disposition is cheerful. This is a fact.",
+    "Snorer": "Earplugs are recommended for night patrols.",
+    "Foodie": "The suggestion box is always full."
+  },
+  "genericMemos": [
+    "Objections are not accepted. No counter has been installed.",
+    "No intention to resign has been confirmed.",
+    "Retention period: undetermined.",
+    "Immediately after printing, everyone seems in good health.",
+    "Based on the record at printing. May differ from the subject's self-assessment."
+  ]
+}

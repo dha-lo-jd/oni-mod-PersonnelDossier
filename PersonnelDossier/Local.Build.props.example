@@ -1,0 +1,9 @@
+<Project>
+    <PropertyGroup>
+        <GameManagedPath>C:\Path\To\OxygenNotIncluded\OxygenNotIncluded_Data\Managed</GameManagedPath>
+        <ModInstallPath>C:\Path\To\mods\local\PersonnelDossier</ModInstallPath>
+        <!-- DuplicantSurveillance.dll (a build that has SurveillanceApi) -->
+        <SurveillanceDllPath>C:\Path\To\mods\local\DuplicantSurveillance\DuplicantSurveillance.dll</SurveillanceDllPath>
+        <HarnessDllPath>C:\Path\To\GravitasTestHarness\Gravitas.TestHarness\bin\Debug\netstandard2.1\Gravitas.TestHarness.dll</HarnessDllPath>
+    </PropertyGroup>
+</Project>
